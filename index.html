@@ -3,30 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Player</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Music Player</title>
 </head>
 <body>
-    <div class="player">
+    <div class="player" id="container">
         <audio id="audio"></audio>
         <div class="song-info">
-            <img id="cover" src="" alt="Album Cover">
+            <img id="cover" src="images/glassmorphimg.jpeg" alt="Album Cover">
             <div>
                 <h3 id="title">Title</h3>
                 <p id="artist">Artist</p>
             </div>
         </div>
-        <div class="controls">
-            <button id="prev">Previous</button>
-            <button id="togglePlay">Play</button>
-            <button id="next">Next</button>
-        </div>
         <div class="progress-container">
-            <span id="currentTime">00:00</span>
             <input type="range" id="progress" value="0" max="100">
-            <span id="totalTime">00:00</span>
+            <div>
+                <span id="currentTime">00:00</span>
+                <span id="totalTime">00:00</span>
+            </div>
+        </div>
+        <div class="controls">
+            <button id="repeat">
+                <i class="fa fa-repeat" aria-hidden="true"></i>
+            </button>
+            <button id="prev">
+                <i class="fa fa-step-backward" aria-hidden="true"></i>
+            </button>
+            <button id="togglePlay">
+                <i class="fa fa-play" aria-hidden="true" id="toggleIcon"></i>
+                <!-- 
+                    <i class="fa fa-pause" aria-hidden="true"></i></i>
+                    <i class="fa fa-repeat" aria-hidden="true"></i>
+                -->
+            </button>
+            <button id="next">
+                <i class="fa fa-forward" aria-hidden="true"></i>
+            </button>
+            <button id="playlist">
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="playlist">
+            <h1>Now Playing</h1>
         </div>
     </div>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

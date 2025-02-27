@@ -1,87 +1,158 @@
-/* styles.css */
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+*,
+*::after,
+*::before{
     margin: 0;
-    background-color: #181818;
-    color: #fff;
-    font-family: Arial, sans-serif;
+    padding: 0;
+    box-sizing: inherit; 
 }
-
+html{
+    box-sizing: border-box;
+    font-size: 62.5%;
+    margin: 0;
+}
+body{
+    display: flex;
+    background: #222;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+}
+.atkinson-hyperlegible-mono-fontstyle {
+    font-family: "Atkinson Hyperlegible Mono", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
 .player {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #282828;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background: url("images/glassmorphimg.jpeg");
+    background-size: cover;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(236, 238, 241, 0.096);
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    height: fit-content;
+    width: 30rem;
 }
-
 .song-info {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    flex-direction: column;
+    margin-bottom: .5rem;
 }
-
 .song-info img {
-    width: 80px;
-    height: 80px;
+    width: 22rem;
+    height: 22rem;
     border-radius: 10px;
+    margin-bottom: 1rem;
 }
-
+.song-info h3{
+    font-size: 2.3rem;
+    padding: 1rem;
+    width: 100%;
+    color: black;
+    text-align: center;
+}
+.song-info p{
+    width: 100%;
+    font-size: 1.6rem;
+    color: black;
+    text-align: center;
+}
 .controls {
     display: flex;
-    justify-content: center;
-    gap: 10px;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: rgba(242, 234, 234, 0.089);
+    backdrop-filter: blur(8px);
+    width: 100%;
+    padding: 1rem;
 }
-
-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background: #1db954;
-    color: #fff;
-    cursor: pointer;
+.controls #togglePlay{
+    width: 5rem;
+    height: 5rem;
 }
-
-button:hover {
-    background: #1ed760;
-}
-
-.progress-container {
+.controls  button{
+    padding: 1rem;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    color: #fff;
+    background-color: rgba(242, 234, 234, 0.089);
+    cursor: pointer;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border: 1px solid white;
+}
+button:hover {
+    background: #fff;
+    color: #222;
+}
+.progress-container {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     width: 100%;
     margin-top: 20px;
 }
-
+.progress-container div{
+    padding-top: .7rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.progress-container div span{
+    color: #fff;
+}
 input[type="range"] {
     -webkit-appearance: none;
     width: 100%;
-    background: #404040;
-    height: 4px;
-    border-radius: 2px;
+    background: #eee;
+    height: 2px;
+    border-radius: 3px;
     outline: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
 }
 
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    background: #1db954;
+    background: #fff;
     cursor: pointer;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
 }
 
 input[type="range"]::-moz-range-thumb {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: #1db954;
+    background: white;
     cursor: pointer;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
 }
