@@ -2,15 +2,19 @@
 const audioDiv = document.getElementById("audio");
 const togglePlayButton = document.getElementById("togglePlay");
 const togglePlayIcon = document.getElementById("toggleIcon");
+const nowPlaying = document.getElementById("nowPlaying");
 const prevButton = document.getElementById("prev");
 const nextButton = document.getElementById("next");
 const progress = document.getElementById("progress");
+const playlistBtn = document.getElementById("playlist");
 const cover = document.getElementById("cover");
+const sidebarBtns = document.querySelectorAll('.playlist_songnames');
+const sidebar = document.getElementById("sidebar");
 const title = document.getElementById("title");
 const artist = document.getElementById("artist");
 const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
-const audio = new Audio(songs[currentSongIndex].audio);
+const replayBtn = document.getElementById('repeat');
 const songs = [
     {
       title: "Joro",
@@ -49,60 +53,78 @@ const songs = [
       },
 ];
 let currentSongIndex = 0;
-const updatePlayer = (song) => {
-    audio.src = song.audio;
-    audio.load();
-    title.textContent = song.title;
-    artist.textContent = `By: ${song.author}`;
-    totalTime.textContent = `${song.duration}`;
+function loadSong(index) {
+    const song = songs[index];
     cover.src = song.cover;
+    nowPlaying.textContent = `${song.title} by ${song.author}`;
+    title.textContent = song.title;
+    artist.textContent = song.author;
+    totalTime.textContent = song.duration;
+    audioDiv.src = song.audio;
+    sidebarBtns.forEach(btn => {
+        btn.textContent = song.title;
+    });
 }
-const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
-};
-togglePlayButton.addEventListener("click", () => {
+function playPauseSong() {
     if (audio.paused) {
         audio.play();
         togglePlayIcon.classList.remove("fa-play");
-        togglePlayIcon.classList.remove("fa-repeat");
         togglePlayIcon.classList.add("fa-pause");
     } else {
         audio.pause();
         togglePlayIcon.classList.remove("fa-pause");
         togglePlayIcon.classList.add("fa-play");
     }
-});
-
-prevButton.addEventListener("click", () => {
+}
+const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+};
+function onClickOutside (element) {
+    document.addEventListener('click', e => {
+        if (!element.contains(e.target)) {
+            element.classList.add("hidden");
+        } else return;
+    });
+  };
+function prevSong() {
     currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-    updatePlayer(songs[currentSongIndex]);
+    loadSong(currentSongIndex);
     audio.play();
-    togglePlayIcon.className = "fa-pause";
-});
-
-nextButton.addEventListener("click", () => {
+    togglePlayIcon.classList.add("fa-pause");
+}
+function nextSong() {
     currentSongIndex = (currentSongIndex + 1) % songs.length;
-    updatePlayer(songs[currentSongIndex]);
+    loadSong(currentSongIndex);
     audio.play();
-    togglePlayIcon.className = "fa-pause";
-});
-
-audio.addEventListener("timeupdate", () => {
-    progress.value = (audio.currentTime / audio.duration) * 100;
-    currentTime.textContent = formatTime(audio.currentTime);
-});
-
+    togglePlayIcon.classList.add("fa-pause");
+}
+function replaySong() {
+    audio.currentTime = 0;
+    audio.play();
+    togglePlayIcon.classList.add("fa-pause");
+}
+function updateProgress() {
+    const progressPercent = (audioDiv.currentTime / audioDiv.duration) * 100;
+    progress.value = progressPercent;
+    progressPercent.style.background = "#25d1ff";
+}
+togglePlayButton.addEventListener('click', playPauseSong);
+prevButton.addEventListener('click', prevSong);
 progress.addEventListener("input", () => {
     audio.currentTime = (progress.value / 100) * audio.duration;
     currentTime.textContent = formatTime(audio.currentTime);
 });
-
+nextButton.addEventListener('click', nextSong);
+replayBtn.addEventListener('click', replaySong);
+audio.addEventListener('timeupdate', updateProgress);
 audio.addEventListener("ended", () => {
-    togglePlayIcon.className = "fa-repeat";
+    togglePlayIcon.classList.add("fa-repeat");
+    nextSong();
 });
-
-function playMusic(){
-    
-}
+playlistBtn.addEventListener('click', () => {
+    sidebar.classList.remove("hidden");
+});
+onClickOutside (sidebar);
+loadSong(currentSongIndex);
