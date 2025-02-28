@@ -23,7 +23,7 @@ const songs = [
     },
     {
       title: "On the Low",
-      author: "Burna Bow",
+      author: "Burna Boy",
       audio: "audioFiles/onthelow.mp3",
       duration: "3:05",
       cover: "images/onthelowImg.jpg"
@@ -58,7 +58,6 @@ function loadSong(index) {
     artist.textContent = song.author;
     totalTime.textContent = song.duration;
     audioDiv.src = song.audio;
-    updatePlaylist();
 }
 function playPauseSong() {
     if (audio.paused) {
@@ -71,13 +70,6 @@ function playPauseSong() {
         togglePlayIcon.classList.add("fa-play");
     }
 }
-function onClickOutside (element) {
-    document.addEventListener('click', e => {
-        if (!element.contains(e.target)) {
-            element.classList.add("hidden");
-        } else return;
-    });
-  };
 function prevSong() {
     currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
     loadSong(currentSongIndex);
@@ -105,30 +97,6 @@ function updateCurrentTime() {
     const seconds = currentTimer % 60;
     currentTime.textContent = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 };
-function updatePlaylist() {
-    sidebar.innerHTML = "";
-    const currentSong = songs[currentSongIndex];
-    const h1 = document.createElement("h1");
-    h1.textContent = `Now Playing: ${currentSong.title} by ${currentSong.author}`;
-    sidebar.appendChild(h1);
-    const playlistContainer = document.createElement("div");
-    playlistContainer.className = "playlist_container";
-    songs.forEach((song, index) => {
-        if (index !== currentSongIndex) {
-            const button = document.createElement("button");
-            button.textContent = `${song.title} - ${song.author}`;
-            button.addEventListener("click", () => {
-                currentSongIndex = index;
-                loadSong(songs[currentSongIndex]);
-                audio.play();
-                togglePlayIcon.classList.add("fa-pause");
-            });
-            playlistContainer.appendChild(button);
-        }
-    });
-    sidebar.appendChild(playlistContainer);
-};
-updatePlaylist();
 audioDiv.addEventListener("timeupdate", updateCurrentTime);
 togglePlayButton.addEventListener('click', playPauseSong);
 prevButton.addEventListener('click', prevSong);
@@ -143,8 +111,4 @@ audio.addEventListener("ended", () => {
     togglePlayIcon.classList.add("fa-repeat");
     nextSong();
 });
-playlistBtn.addEventListener('click', () => {
-    sidebar.classList.remove("hidden");
-});
-onClickOutside (sidebar);
 loadSong(currentSongIndex);
