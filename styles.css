@@ -199,6 +199,9 @@ input[type="range"]::-moz-range-thumb {
     padding: 1rem;
     color: #eee;
 }
+.playlist_container .active{
+    color: #25d1ff;
+}
 .playlist_container button:hover{
     color: #25d1ff;
     transform: scale(1.02);

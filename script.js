@@ -2,13 +2,11 @@
 const audioDiv = document.getElementById("audio");
 const togglePlayButton = document.getElementById("togglePlay");
 const togglePlayIcon = document.getElementById("toggleIcon");
-const nowPlaying = document.getElementById("nowPlaying");
 const prevButton = document.getElementById("prev");
 const nextButton = document.getElementById("next");
 const progress = document.getElementById("progress");
 const playlistBtn = document.getElementById("playlist");
 const cover = document.getElementById("cover");
-const sidebarBtns = document.querySelectorAll('.playlist_songnames');
 const sidebar = document.getElementById("sidebar");
 const title = document.getElementById("title");
 const artist = document.getElementById("artist");
@@ -56,14 +54,11 @@ let currentSongIndex = 0;
 function loadSong(index) {
     const song = songs[index];
     cover.src = song.cover;
-    nowPlaying.textContent = `${song.title} by ${song.author}`;
     title.textContent = song.title;
     artist.textContent = song.author;
     totalTime.textContent = song.duration;
     audioDiv.src = song.audio;
-    sidebarBtns.forEach(btn => {
-        btn.textContent = song.title;
-    });
+    updatePlaylist();
 }
 function playPauseSong() {
     if (audio.paused) {
@@ -76,11 +71,6 @@ function playPauseSong() {
         togglePlayIcon.classList.add("fa-play");
     }
 }
-const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
-};
 function onClickOutside (element) {
     document.addEventListener('click', e => {
         if (!element.contains(e.target)) {
@@ -108,8 +98,38 @@ function replaySong() {
 function updateProgress() {
     const progressPercent = (audioDiv.currentTime / audioDiv.duration) * 100;
     progress.value = progressPercent;
-    progressPercent.style.background = "#25d1ff";
 }
+function updateCurrentTime() {
+    const currentTimer = Math.floor(audioDiv.currentTime);
+    const minutes = Math.floor(currentTimer / 60);
+    const seconds = currentTimer % 60;
+    currentTime.textContent = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+};
+function updatePlaylist() {
+    sidebar.innerHTML = "";
+    const currentSong = songs[currentSongIndex];
+    const h1 = document.createElement("h1");
+    h1.textContent = `Now Playing: ${currentSong.title} by ${currentSong.author}`;
+    sidebar.appendChild(h1);
+    const playlistContainer = document.createElement("div");
+    playlistContainer.className = "playlist_container";
+    songs.forEach((song, index) => {
+        if (index !== currentSongIndex) {
+            const button = document.createElement("button");
+            button.textContent = `${song.title} - ${song.author}`;
+            button.addEventListener("click", () => {
+                currentSongIndex = index;
+                loadSong(songs[currentSongIndex]);
+                audio.play();
+                togglePlayIcon.classList.add("fa-pause");
+            });
+            playlistContainer.appendChild(button);
+        }
+    });
+    sidebar.appendChild(playlistContainer);
+};
+updatePlaylist();
+audioDiv.addEventListener("timeupdate", updateCurrentTime);
 togglePlayButton.addEventListener('click', playPauseSong);
 prevButton.addEventListener('click', prevSong);
 progress.addEventListener("input", () => {
