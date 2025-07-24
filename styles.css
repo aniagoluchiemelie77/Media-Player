@@ -15,9 +15,9 @@ body{
     display: flex;
     background: #222;
     align-items: center;
-    flex-direction: column;
     justify-content: center;
     height: 100vh;
+    position: relative;
 }
 .atkinson-hyperlegible-mono-fontstyle {
     font-family: "Atkinson Hyperlegible Mono", serif;
@@ -40,8 +40,6 @@ body{
     -o-border-radius: 1rem;
     height: fit-content;
     width: 30rem;
-    overflow: hidden;
-    position: relative;
 }
 .song-info {
     display: flex;
@@ -159,4 +157,162 @@ input[type="range"]::-moz-range-thumb {
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
+}
+.popup{
+    height: 100vh;
+    width: 100vw;
+    padding: 2rem;
+    display: none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:100;
+    background:#000c;
+    backdrop-filter:blur(10px);
+    position:fixed;
+}
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    align-items: center;
+    padding: 1.3rem;
+}
+.popup-header h1{
+    font-size: 3.5rem;
+    color: #25d1ff;
+}
+.popup-header i{
+    font-size: 2.3rem;
+    color: #fff;
+    cursor: pointer;
+    transition: all ease 1s;
+    -webkit-transition: all ease 1s;
+    -moz-transition: all ease 1s;
+    -ms-transition: all ease 1s;
+    -o-transition: all ease 1s;
+}
+.popup-header i:hover{
+    color: #25d1ff;
+    transform: scale(1.4);
+    -webkit-transform: scale(1.4);
+    -moz-transform: scale(1.4);
+    -ms-transform: scale(1.4);
+    -o-transform: scale(1.4);
+}
+.add-song-form{
+    width: 50%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.add-song-form .input{
+    width: 100%;
+    padding: 1rem;
+    font: 1.5rem;
+    border: none;
+    outline: none;
+    margin-bottom: 1rem;
+    border-radius: .9rem;
+    -webkit-border-radius: .9rem;
+    -moz-border-radius: .9rem;
+    -ms-border-radius: .9rem;
+    -o-border-radius: .9rem;
+}
+.add-song-form .input:focus{
+    border: none;
+    outline: 2px solid #25d1ff;
+}
+.file-input{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-evenly;
+    padding: 1rem;
+}
+.file-input p{
+   font-size: 1.5rem;
+   color: #fff;
+}
+.file-input input[type="file"] {
+    padding: 1rem;
+    cursor: pointer;
+}
+ .add-song-button{
+    width: fit-content;
+    padding: 1rem;
+    font-weight: 850;
+    border: none;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    cursor: pointer;
+    transition: all ease 1s;
+    -webkit-transition: all ease 1s;
+    -moz-transition: all ease 1s;
+    -ms-transition: all ease 1s;
+    -o-transition: all ease 1s;
+}
+.add-song-form button:hover{
+    background-color: #1eb2db;
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+}
+.playlist{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30vw;
+    height: 100vh;
+    background-color:  black;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+}
+.playlist h2{
+    font-size: 3rem;
+    color: #25d1ff;
+    padding: 1rem 0;
+}
+.playlist-items{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+}
+.playlist-items li{
+    margin-bottom: 1rem;
+    padding: .7rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.playlist-items li span{
+    color: #fff;
+    font-size: 1.5rem;
+}
+.playlist-items li i{
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.playlist-items li i:hover{
+    color: #25d1ff;
+}
+.playlist-item.current {
+    background-color: #25d1ff;
+    color: #222;
+    font-weight: bold;
 }
