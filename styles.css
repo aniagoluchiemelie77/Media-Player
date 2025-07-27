@@ -316,3 +316,26 @@ input[type="range"]::-moz-range-thumb {
     color: #222;
     font-weight: bold;
 }
+.volume-control{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem;
+}
+.volume-control span {
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+.volume-control input[type="range"] {
+    width: 100%;
+    height: 2px;
+    background: #eee;
+    border-radius: 3px;
+    outline: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}

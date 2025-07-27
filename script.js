@@ -13,6 +13,9 @@ const totalTime = document.getElementById("totalTime");
 const replayBtn = document.getElementById("repeat");
 const playlistContainer = document.getElementById("playlistItems");
 const addSongBtn = document.getElementById("addSongButton");
+const audio = document.getElementById("audio");
+const volumeSlider = document.getElementById("volumeSlider");
+const volumeIcon = document.getElementById("volumeIcon");
 const popup = document.getElementById("popup");
 const closePopupIcon = document.querySelector(".popup-header i");
 const addSongForm = document.getElementById("addSongForm");
@@ -217,6 +220,32 @@ addSongForm.addEventListener("submit", (e) => {
   popup.style.display = "none";
   resetForm();
 });
+volumeSlider.addEventListener("input", () => {
+  const volume = parseFloat(volumeSlider.value);
+  audio.volume = volume;
+
+  if (volume === 0) {
+    volumeIcon.textContent = "🔇";
+  } else if (volume < 0.4) {
+    volumeIcon.textContent = "🔈";
+  } else if (volume < 0.7) {
+    volumeIcon.textContent = "🔉";
+  } else {
+    volumeIcon.textContent = "🔊";
+  }
+});
+
+volumeIcon.addEventListener("click", () => {
+  if (audio.volume > 0) {
+    audio.volume = 0;
+    volumeSlider.value = 0;
+    volumeIcon.textContent = "🔇";
+  } else {
+    audio.volume = 1;
+    volumeSlider.value = 1;
+    volumeIcon.textContent = "🔊";
+  }
+});
 
 audioDiv.addEventListener("timeupdate", () => {
   updateCurrentTime();
@@ -237,6 +266,5 @@ audioDiv.addEventListener("ended", () => {
   togglePlayIcon.classList.add("fa-repeat");
   nextSong();
 });
-d;
 loadSong(currentSongIndex);
 renderPlaylist();
